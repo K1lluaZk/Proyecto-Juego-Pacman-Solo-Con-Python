@@ -5,8 +5,6 @@ Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y 
 ### Jugabilidad clásica: Controla a Pac-Man para recoger puntos mientras evitas a los fantasmas.
 ### Interfaz de inicio: Menú principal para iniciar el juego.
 ### Interfaz gráfica mejorada: Elementos visuales y de sonido para una experiencia de usuario envolvente.
-### Puntos y niveles: Avanza de nivel y acumula puntos al completar objetivos.
-### Compatibilidad: Jugable en computadora y en dispositivos móviles con soporte para Pygame.
 
 ## Requisitos
 ### Python 3.x
@@ -14,7 +12,6 @@ Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y 
 
 ## Controles del Juego
 ### Teclas de dirección: Usa las flechas para mover a Pac-Man.
-### Escape: Pausa el juego.
 
 ## Capturas de Pantalla
 ![image](https://github.com/user-attachments/assets/0d978f9b-7708-47b7-b9d6-6ea0c03e5732)
@@ -30,3 +27,5 @@ Desarrollado por Mario.
 
 ## Licencia
 Este proyecto está licenciado bajo la Licencia MIT.
+
+## A Este juego Todavia Le Faltan Algunas Mejoras Y Ideas No Terminadas

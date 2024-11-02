@@ -23,7 +23,7 @@ Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y 
 Las contribuciones son bienvenidas. Si tienes sugerencias para mejorar el juego o agregar nuevas características, abre un pull request.
 
 ## Autor
-Desarrollado por Mario.
+Desarrollado por K1llua.
 
 ## Licencia
 Este proyecto está licenciado bajo la Licencia MIT.

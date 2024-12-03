@@ -12,6 +12,8 @@ Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y 
 
 ## Controles del Juego
 ### Teclas de dirección: Usa las flechas para mover a Pac-Man.
+### P para pausar el juego
+### espacio para reiniciar el juego cuando ganas o pierdes
 
 ## Capturas de Pantalla
 ![image](https://github.com/user-attachments/assets/0d978f9b-7708-47b7-b9d6-6ea0c03e5732)

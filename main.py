@@ -14,6 +14,7 @@ pygame.mixer.music.load(f"Proyecto PM/Pacman Music.wav")
 
 pygame.mixer.music.play(-1)
 
+
 pygame.mixer.music.set_volume(0.5)
 
 # Configuraciones basicas del juego
@@ -26,6 +27,8 @@ screen = pygame.display.set_mode([width, height])
 timer = pygame.time.Clock()
 fps = 60
 font = pygame.font.Font("freesansbold.ttf", 20)
+
+#Configuracion de pantalla de intro
 
 White = (255, 255, 255)
 Black = (0, 0, 0)
@@ -49,6 +52,7 @@ control_text = [
     "Flecha Izquierda: Mover Hacia La Izquierda",
     "Flecha Derecha: Mover Hacia La Derecha",
     "Espacio: Reiniciar Cuando Pierda O Gane",
+    "P: Para Pausar El Juego"
 ]
 
 # Función de pantalla de inicio
@@ -91,6 +95,8 @@ inky_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/b
 clyde_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/orange.png"), (45, 45))
 spooked_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/powerup.png"), (45, 45))
 dead_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/dead.png"), (45, 45))
+cherry_image = pygame.transform.scale(pygame.image.load(f"Proyecto PM/cherry.png"), (35, 35))
+
 # Coordenadas De Personajes
 # Coordenadas Donde Se Encuentra El Jugador Y Los Enemigos
 # Jugador 1
@@ -120,7 +126,7 @@ flicker = False
 turns_allowed = [False, False, False, False]
 direction_command = 0
 # Velocidad de jugador
-player_speed = 2
+player_speed = 3
 # Puntos
 score = 0
 # Powerup, conteo de powerup y fantasmas comidos
@@ -141,7 +147,7 @@ inky_box = False
 clyde_box = False
 
 moving = False
-ghost_speeds = [2, 2, 2, 2]
+ghost_speeds = [3, 3, 3, 3]
 startup_counter = 0
 # Vidas Del Pacman (Jugador 1)
 lives = 3
@@ -751,28 +757,53 @@ class Ghost:
             self.x_pos - 30
         return self.x_pos, self.y_pos, self.direction
 
-      
+#Configuracion al ganar o perder      
 def draw_misc():
       score_text = font.render(f"Puntos: {score}", True, "white" )
       screen.blit(score_text, (10, 920))
       if power_up:
-         pygame.draw.circle(screen, "blue", (140, 930), 15)
+         screen.blit(cherry_image, (135, 915))
       for i in range(lives):
          screen.blit(pygame.transform.scale(player_images[0], (30, 30)), (650 + i * 40, 915))
       if game_over:
-         pygame.draw.rect(screen,"white", [50, 200, 800, 300],0, 10)
-         pygame.draw.rect(screen,"dark gray", [70, 220, 760, 260],0, 10)
-         game_over_text = font.render("Game Over, Mala Suerte! Espacio Para Reiniciar!", True, "red")
-         screen.blit(game_over_text, ( 100, 300))
+        pygame.draw.rect(screen, "red", [50, 200, 800, 300], 10, 20)  
+        pygame.draw.rect(screen, "dark gray", [70, 220, 760, 260], 10, 20)  
+        game_over_text = font.render("Game Over, Mala Suerte! Espacio Para Reiniciar", True, "white")
+        screen.blit(game_over_text, (100, 300))
       if game_won:
-         pygame.draw.rect(screen,"white", [50, 200, 800, 300],0, 10)
-         pygame.draw.rect(screen,"dark gray", [70, 220, 760, 260],0, 10)
-         game_won_text = font.render("Felicidades, Has Ganado! Espacio Para Reiniciar!", True, "green")
-         screen.blit(game_won_text, ( 100, 300))
-   
-            
-            
-            
+        pygame.draw.rect(screen, "green", [50, 200, 800, 300], 10, 20)  
+        pygame.draw.rect(screen, "dark gray", [70, 220, 760, 260], 10, 20)  
+        game_won_text = font.render("Felicidades, Has Ganado! Espacio Para Reiniciar", True, "white")
+        screen.blit(game_won_text, (100, 300))
+
+def reset_game():
+    global score,lives,game_over,game_won,paused,level,player_x,player_y,direction,blinky_x,blinky_y,blinky_direction,inky_x,inky_y,inky_direction,pinky_x,pinky_y,pinky_direction,clyde_x,clyde_y,clyde_direction
+    
+    
+    lives = 3
+    score = 0
+    game_over = False
+    game_won = False
+    paused = False       
+    level = copy.deepcopy(boards)
+    player_x = 450
+    player_y = 663
+    direction = 0
+    blinky_x = 56
+    blinky_y = 58
+    blinky_direction = 0
+    inky_x = 440
+    inky_y = 388
+    inky_direction = 2
+    pinky_x = 440 
+    pinky_y = 438
+    pinky_direction = 0
+    clyde_x = 440
+    clyde_y = 438
+    clyde_direction = 0
+
+    
+        
 #Check collision para jugador
 #Puntos y colision de bolitas que dan puntos tambien
 def check_collisions(Score, powerup, powerup_count, eaten_ghosts):
@@ -899,7 +930,7 @@ def move_player(play_x, play_y):
       play_y += player_speed 
    return play_x, play_y
 
- 
+# Movimiento de cada fantasma y cual zona debe frecuentar
 def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
     if player_x < 450:
         runaway_x = 900
@@ -981,10 +1012,55 @@ def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
  
  
  
-      
+
+
+#Configuracion basica y tambien parte de configuracion de como actua el jugador uno (Pacman) y de pausa en juego   
 run = True
+paused = False
+
+#Muestra un mensaje de pausa en pantalla de pausa
+def handle_pause():
+    pause_text = font.render("Juego en pausa. Presiona P para continuar", True, "white")
+    text_rect = pause_text.get_rect(center=(width // 2, height // 2))
+    screen.blit(pause_text, text_rect)
+    pygame.display.flip()
+    
+
 while run:
    timer.tick(fps)
+   
+   for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and (game_over or game_won):
+                reset_game()
+
+            if event.key == pygame.K_p and not (game_over or game_won):
+                paused = not paused
+
+   if game_over or game_won:
+        screen.fill("black")
+        draw_misc()  
+        pygame.display.flip()
+        draw_player()
+        continue                  
+  
+  
+  
+   if paused:
+        handle_pause()
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    paused = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                    paused = False 
+            timer.tick(fps)
+        continue  
+    
+           
    if counter < 19:
       counter += 1
       if counter > 3:
@@ -1007,6 +1083,7 @@ while run:
       
    screen.fill("black")
    draw_board(level)
+
    # Centro De Jugador 1 (Pacman)
    center_x = player_x + 23
    center_y = player_y + 24
@@ -1053,6 +1130,7 @@ while run:
    
    pygame.draw.circle(screen, "white", (center_x, center_y), 2)
    
+   #Declaracion de movimientos para que los fantasmas sigan al jugador a donde se mueva y lo intenten acorralar
    turns_allowed = check_position(center_x, center_y)
    if moving:
         player_x, player_y = move_player(player_x, player_y)
@@ -1249,6 +1327,8 @@ while run:
     if event.type == pygame.QUIT:
        run = False
     if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_p:  
+        paused = not paused
       if event.key == pygame.K_RIGHT:
        direction_command = 0
       if event.key == pygame.K_LEFT:
@@ -1289,7 +1369,7 @@ while run:
              game_over = False
              game_won = False
              
-             
+    
     if event.type == pygame.KEYUP:
        if event.key == pygame.K_RIGHT and direction_command ==  0:
          direction_command = direction
@@ -1333,4 +1413,8 @@ while run:
 pygame.quit()
 
 
-
+#Cosas faltantes:
+#Boton P para pausar (Listo, pero seguiremos probando por si se encuentra un bug)
+#Modificar cuando se gana y se pierde (Listo, seguir probando por si bug)
+#Modificar powerup por cereza, referencia al pacman original (Hecho, seguir probando por si se encuentra un bug)
+#(Solamente probar el juego y mirar la colision o movimiento de teclas porque esta rara y checar que no halla bugs)

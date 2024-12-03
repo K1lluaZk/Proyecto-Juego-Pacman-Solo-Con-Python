@@ -1,5 +1,5 @@
 # Juego de Pac-Man en Python
-Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y la biblioteca Pygame. El juego es completamente jugable en computadora y celular, e incluye características adicionales como una interfaz de inicio y una interfaz gráfica de usuario para mejorar la experiencia.
+Este proyecto es una recreación del clásico juego Pac-Man utilizando Python y la biblioteca Pygame. El juego es completamente jugable en computadora e incluye características adicionales como una interfaz de inicio y una interfaz gráfica de usuario para mejorar la experiencia.
 
 ## Características del Juego
 ### Jugabilidad clásica: Controla a Pac-Man para recoger puntos mientras evitas a los fantasmas.

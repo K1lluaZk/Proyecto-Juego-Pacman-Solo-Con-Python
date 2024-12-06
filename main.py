@@ -46,13 +46,20 @@ imageninicio = pygame.transform.scale(imageninicio, (900, 1000))
 button_rect = pygame.Rect(width // 2 - 50, height // 2, 100, 50)
 
 control_text = [
+    "",
+    "Clickea Iniciar Para Empezar",
+    "",
     "Controles:",
     "Flecha Arriba: Mover Hacia Arriba",
     "Flecha Abajo: Mover Hacia Abajo",
     "Flecha Izquierda: Mover Hacia La Izquierda",
     "Flecha Derecha: Mover Hacia La Derecha",
     "Espacio: Reiniciar Cuando Pierda O Gane",
-    "P: Para Pausar El Juego"
+    "P: Para Pausar El Juego",
+    "",
+    "",
+    "2024 Namco LTD."
+    
 ]
 
 # Función de pantalla de inicio
@@ -82,12 +89,14 @@ def pantalla_inicio():
 
 pantalla_inicio()
 
+
+
 level = copy.deepcopy(boards)
 color = "blue"
 pi = math.pi
 player_images = []
 for i in range(1, 5):
-# Imagenes De Jugador 1 Y Enemigos
+# Imagenes De Jugador 1 Y Enemigos 
       player_images.append(pygame.transform.scale(pygame.image.load(f"Proyecto PM/player_images/{i}.png"), (45, 45)))
 blinky_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/red.png"), (45, 45))
 pinky_img = pygame.transform.scale(pygame.image.load(f"Proyecto PM/ghost_images/pink.png"), (45, 45))
@@ -765,6 +774,10 @@ def draw_misc():
          screen.blit(cherry_image, (135, 915))
       for i in range(lives):
          screen.blit(pygame.transform.scale(player_images[0], (30, 30)), (650 + i * 40, 915))
+      jugador_text = font.render(f"1UP",True, "white")
+      screen.blit(jugador_text, (780, 920))
+      vidas_text = font.render(f"Vidas:",True, "white")
+      screen.blit(vidas_text, (580, 920))
       if game_over:
         pygame.draw.rect(screen, "red", [50, 200, 800, 300], 10, 20)  
         pygame.draw.rect(screen, "dark gray", [70, 220, 760, 260], 10, 20)  
@@ -776,8 +789,9 @@ def draw_misc():
         game_won_text = font.render("Felicidades, Has Ganado! Espacio Para Reiniciar", True, "white")
         screen.blit(game_won_text, (100, 300))
 
+#Reset al ganar o perder
 def reset_game():
-    global score,lives,game_over,game_won,paused,level,player_x,player_y,direction,blinky_x,blinky_y,blinky_direction,inky_x,inky_y,inky_direction,pinky_x,pinky_y,pinky_direction,clyde_x,clyde_y,clyde_direction
+    global score,lives,game_over,game_won,paused,level,player_x,player_y,direction,blinky_x,blinky_y,blinky_direction,inky_x,inky_y,inky_direction,pinky_x,pinky_y,pinky_direction,clyde_x,clyde_y,clyde_direction,startup_counter
     
     
     lives = 3
@@ -801,6 +815,7 @@ def reset_game():
     clyde_x = 440
     clyde_y = 438
     clyde_direction = 0
+    startup_counter = 0
 
     
         
@@ -1024,7 +1039,6 @@ def handle_pause():
     text_rect = pause_text.get_rect(center=(width // 2, height // 2))
     screen.blit(pause_text, text_rect)
     pygame.display.flip()
-    
 
 while run:
    timer.tick(fps)
@@ -1043,6 +1057,7 @@ while run:
         screen.fill("black")
         draw_misc()  
         pygame.display.flip()
+        timer.tick(fps)
         draw_player()
         continue                  
   
@@ -1057,7 +1072,6 @@ while run:
                     paused = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                     paused = False 
-            timer.tick(fps)
         continue  
     
            
@@ -1413,8 +1427,4 @@ while run:
 pygame.quit()
 
 
-#Cosas faltantes:
-#Boton P para pausar (Listo, pero seguiremos probando por si se encuentra un bug)
-#Modificar cuando se gana y se pierde (Listo, seguir probando por si bug)
-#Modificar powerup por cereza, referencia al pacman original (Hecho, seguir probando por si se encuentra un bug)
-#(Solamente probar el juego y mirar la colision o movimiento de teclas porque esta rara y checar que no halla bugs)
+#k1llua 

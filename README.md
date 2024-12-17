@@ -28,6 +28,6 @@ Las contribuciones son bienvenidas. Si tienes sugerencias para mejorar el juego 
 Desarrollado por K1llua.
 
 ## Licencia
-Este proyecto está licenciado bajo la Licencia MIT.
+Este proyecto está licenciado bajo la Licencia GNU.
 
 ## A Este juego Todavia Le Faltan Algunas Mejoras Y Ideas No Terminadas
